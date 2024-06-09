@@ -1,9 +1,7 @@
 # RadLine
 
-This is a preview of the RadLine library.  
-At this point, we will not be accepting pull requests for new functionality.
-
-_[![RadLine NuGet Version](https://img.shields.io/nuget/v/radline.svg?style=flat&label=NuGet%3ARadLine)](https://www.nuget.org/packages/RadLine)_
+This is a FORK of the RadLine library from spectreconsole (patriksvensson).
+This fork aims to provide some improvement on the original library (for now: readonly editor and possibility to place new lines wherever you want in the editor).
 
 # Usage
 
