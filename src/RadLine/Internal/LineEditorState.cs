@@ -107,5 +107,12 @@ namespace RadLine
             _lines.Add(new LineBuffer(content));
             _lineIndex++;
         }
+
+        public void InsertLine(string? content = null)
+        {
+            _lineIndex++;
+            _lines.Insert(_lineIndex, new LineBuffer(content));
+        }
+
     }
 }

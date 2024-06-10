@@ -91,10 +91,10 @@ namespace RadLine
                         continue;
                     }
                 }
-                else if (result.Result == SubmitAction.NewLine && MultiLine && state.IsLastLine)
+                else if (result.Result == SubmitAction.NewLine && MultiLine) // && state.IsLastLine)
                 {
                     // Add a new line
-                    state.AddLine();
+                    state.InsertLine();
 
                     // Refresh
                     var builder = new StringBuilder();
