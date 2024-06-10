@@ -27,8 +27,10 @@ namespace RadLine
         public IHighlighter? Highlighter { get; set; }
         public ILineEditorHistory History => _history;
 
-        public LineEditor(IAnsiConsole? terminal = null, IInputSource? source = null, IServiceProvider? provider = null)
+        public LineEditor(IAnsiConsole? terminal = null, IInputSource? source = null, IServiceProvider? provider = null, bool isReadonly = false)
         {
+            Readonly = isReadonly;
+
             _console = terminal ?? AnsiConsole.Console;
             _source = source ?? new DefaultInputSource(_console);
             _provider = provider;
@@ -37,7 +39,7 @@ namespace RadLine
             _input = new InputBuffer(_source);
 
             KeyBindings = new KeyBindings();
-            KeyBindings.AddDefault();
+            KeyBindings.AddDefault(Readonly);
         }
 
         public static bool IsSupported(IAnsiConsole console)
@@ -162,7 +164,7 @@ namespace RadLine
                 var key = await _input.ReadKey(MultiLine, cancellationToken).ConfigureAwait(false);
                 if (key != null)
                 {
-                    if (key.Value.KeyChar != 0 && !char.IsControl(key.Value.KeyChar))
+                    if (key.Value.KeyChar != 0 && !char.IsControl(key.Value.KeyChar) && !Readonly)
                     {
                         command = new InsertCommand(key.Value.KeyChar);
                     }

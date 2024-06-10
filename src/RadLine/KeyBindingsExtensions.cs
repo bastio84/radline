@@ -4,13 +4,18 @@ namespace RadLine
 {
     public static class KeyBindingsExtensions
     {
-        public static void AddDefault(this KeyBindings bindings)
+        public static void AddDefault(this KeyBindings bindings, bool isReadonlyEditor)
         {
-            bindings.Add(ConsoleKey.Tab, () => new AutoCompleteCommand(AutoComplete.Next));
-            bindings.Add(ConsoleKey.Tab, ConsoleModifiers.Control, () => new AutoCompleteCommand(AutoComplete.Previous));
+            if (!isReadonlyEditor)
+            {
+                bindings.Add(ConsoleKey.Tab, () => new AutoCompleteCommand(AutoComplete.Next));
+                bindings.Add(ConsoleKey.Tab, ConsoleModifiers.Control, () => new AutoCompleteCommand(AutoComplete.Previous));
+                bindings.Add<BackspaceCommand>(ConsoleKey.Backspace);
+                bindings.Add<DeleteCommand>(ConsoleKey.Delete);
+                bindings.Add<SubmitCommand>(ConsoleKey.Enter);
+                bindings.Add<NewLineCommand>(ConsoleKey.Enter, ConsoleModifiers.Shift);
+            }
 
-            bindings.Add<BackspaceCommand>(ConsoleKey.Backspace);
-            bindings.Add<DeleteCommand>(ConsoleKey.Delete);
             bindings.Add<MoveHomeCommand>(ConsoleKey.Home);
             bindings.Add<MoveEndCommand>(ConsoleKey.End);
             bindings.Add<MoveUpCommand>(ConsoleKey.UpArrow);
@@ -23,8 +28,7 @@ namespace RadLine
             bindings.Add<NextWordCommand>(ConsoleKey.RightArrow, ConsoleModifiers.Control);
             bindings.Add<PreviousHistoryCommand>(ConsoleKey.UpArrow, ConsoleModifiers.Control);
             bindings.Add<NextHistoryCommand>(ConsoleKey.DownArrow, ConsoleModifiers.Control);
-            bindings.Add<SubmitCommand>(ConsoleKey.Enter);
-            bindings.Add<NewLineCommand>(ConsoleKey.Enter, ConsoleModifiers.Shift);
+            bindings.Add<CancelEditorCommand>(ConsoleKey.Escape);
         }
 
         public static void Add<TCommand>(this KeyBindings bindings, ConsoleKey key, ConsoleModifiers? modifiers = null)
