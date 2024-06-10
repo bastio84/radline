@@ -18,12 +18,13 @@ namespace RadLine
         private readonly InputBuffer _input;
 
         public KeyBindings KeyBindings { get; }
-        public bool MultiLine { get; init; } = false;
-        public string Text { get; init; } = string.Empty;
+        public bool MultiLine { get; set; } = false;
+        public bool Readonly { get; }
+        public string Text { get; set; } = string.Empty;
 
-        public ILineEditorPrompt Prompt { get; init; } = new LineEditorPrompt("[yellow]>[/]");
-        public ITextCompletion? Completion { get; init; }
-        public IHighlighter? Highlighter { get; init; }
+        public ILineEditorPrompt Prompt { get; set; } = new LineEditorPrompt("[yellow]>[/]");
+        public ITextCompletion? Completion { get; set; }
+        public IHighlighter? Highlighter { get; set; }
         public ILineEditorHistory History => _history;
 
         public LineEditor(IAnsiConsole? terminal = null, IInputSource? source = null, IServiceProvider? provider = null)

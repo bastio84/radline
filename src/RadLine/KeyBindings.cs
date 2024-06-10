@@ -30,7 +30,7 @@ namespace RadLine
             _bindingLookup[typeof(TCommand)] = binding;
         }
 
-        internal bool TryFindKeyBindings<TCommand>([NotNullWhen(true)] out KeyBinding? binding)
+        internal bool TryFindKeyBindings<TCommand>(/*[NotNullWhen(true)] */out KeyBinding? binding)
             where TCommand : LineEditorCommand
         {
             return _bindingLookup.TryGetValue(typeof(TCommand), out binding);
